@@ -59,7 +59,6 @@
             transition: transform 0.4s ease, background-color 0.3s ease;
         }
 
-        /* Анимация изменения гамбургер-меню в линию */
         .toggle-btn.open .bar1 {
             transform: rotate(-45deg) translate(-4px, 4px);
         }
@@ -119,7 +118,7 @@
         }
 
         .menu-items button:hover {
-            background-color: #ffffff;
+            background-color: #ffffff13;
             color: white;
         }
 
@@ -166,6 +165,29 @@
             overflow: hidden !important;
             padding-right: 0 !important;
         }
+
+        /* Стили для кнопки в левом нижнем углу */
+        .switch-btn {
+            position: fixed;
+            bottom: 85px;
+            left: 15px;
+            z-index: 1050;
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .switch-btn:hover {
+            background-color: rgba(255, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -184,15 +206,13 @@
     </div>
 </div>
 
-<iframe 
-    id="iframe_34889536475908336" 
-    class="showcase showcase" 
-    frameborder="0" 
-    allow="geolocation;fullscreen;vr;autoplay;xr-spatial-tracking"
-    src="https://my.matterport.com/show/?m=XDAfMrY7hxC&play=1&newtags=1&xruntested=1&title=0&brand=1&hl=0&tourcta=1&dh=0&mt=1&nozoom=0&pin=0&mls=0&qs=0&gt=1&portal=1&f=1&wh=1&kb=1&lp=1&vr=1&help=null&nt=0&search=0&hidetags=1&ss=34&sr=-0.17134584928066443,1.079921397637133&useLegacyIds=1"
-    style="filter: brightness(0.97) saturate(1.47) contrast(1.02);">
-</iframe>
+<!-- Основной iframe -->
+<iframe id="mainIframe" src='https://my.matterport.com/show/?m=XDAfMrY7hxC&play=1&pin=1&portal=0&fp=0' allowfullscreen allow='xr-spatial-tracking'></iframe>
 
+<!-- Кнопка в левом нижнем углу -->
+<div class="switch-btn" id="switchBtn">
+    <span style="color: #ffffff;">⇆</span>
+</div>
 
 <div class="modal fade" id="popup1" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
@@ -226,6 +246,8 @@
 <script>
     const toggleMenu = document.getElementById('toggleMenu');
     const circleMenu = document.getElementById('circleMenu');
+    const switchBtn = document.getElementById('switchBtn');
+    const mainIframe = document.getElementById('mainIframe');
 
     toggleMenu.addEventListener('click', () => {
         toggleMenu.classList.toggle('open');
@@ -250,6 +272,16 @@
         const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
         toggleMenu.style.display = isFullscreen ? 'block' : 'flex';
     }
+
+    // Обработка клика на кнопку для переключения iframe
+    switchBtn.addEventListener('click', () => {
+        const currentSrc = mainIframe.src;
+        if (currentSrc.includes('XDAfMrY7hxC')) {
+            mainIframe.src = 'https://my.matterport.com/show/?m=Nr6LgMPUrmz&play=1&pin=1&portal=0&fp=0';
+        } else {
+            mainIframe.src = 'https://my.matterport.com/show/?m=XDAfMrY7hxC&play=1&pin=1&portal=0&fp=0';
+        }
+    });
 </script>
 
 </body>
