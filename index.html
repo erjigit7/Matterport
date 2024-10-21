@@ -24,20 +24,52 @@
             border: none;
         }
 
+        /* Стили для гамбургер-меню */
         .toggle-btn {
             position: fixed;
             top: 20px;
             right: 20px;
-            z-index: 1050; /* Повышаем приоритет */
-            width: 50px;
-            height: 50px;
-            background-color: #007bff;
-            color: white;
+            z-index: 1050;
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            border: 2px solid #ffffff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            flex-wrap: wrap;
+            align-items: stretch;
+            align-content: center;
+        }
+
+        .toggle-btn:hover {
+            background-color: rgba(0, 123, 255, 0.1);
+        }
+
+        /* Линии для гамбургер-меню */
+        .toggle-btn .bar {
+            width: 20px;
+            height: 2px;
+            background-color: #ffffff;
+            margin: 2px 0;
+            transition: transform 0.4s ease, background-color 0.3s ease;
+        }
+
+        /* Анимация изменения гамбургер-меню в линию */
+        .toggle-btn.open .bar1 {
+            transform: rotate(-45deg) translate(-4px, 4px);
+        }
+
+        .toggle-btn.open .bar2 {
+            opacity: 0;
+        }
+
+        .toggle-btn.open .bar3 {
+            transform: rotate(45deg) translate(-4px, -5px);
         }
 
         .circle-menu {
@@ -46,7 +78,6 @@
             right: 20px;
             width: 50px;
             height: 50px;
-            background-color: rgba(0, 123, 255, 0.8);
             border-radius: 50%;
             z-index: 1040;
             transition: transform 0.5s ease-out;
@@ -76,30 +107,37 @@
             position: absolute;
             width: 50px;
             height: 50px;
-            background-color: white;
-            border: 1px solid #007bff;
-            color: #007bff;
+            background-color: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
 
+        .menu-items button:hover {
+            background-color: #ffffff;
+            color: white;
+        }
+
+        /* Анимация для веерного открытия, но с сохранением конечных координат */
         .circle-menu.open .menu-items button:nth-child(1) {
-            transform: translate(-85px, -13px) rotate(-360deg);
+            transform: translate(-85px, -13px) rotate(-360deg); /* Прежние координаты */
         }
 
         .circle-menu.open .menu-items button:nth-child(2) {
-            transform: translate(-66px, 70px) rotate(-360deg);
+            transform: translate(-66px, 70px) rotate(-360deg); /* Прежние координаты */
         }
 
         .circle-menu.open .menu-items button:nth-child(3) {
-            transform: translate(14px, 90px) rotate(-360deg);
+            transform: translate(14px, 90px) rotate(-360deg); /* Прежние координаты */
         }
 
         .modal-dialog {
-            max-width:95%;
+            max-width: 95%;
             margin-top: 20px;
             height: 95%;
             display: flex;
@@ -109,7 +147,6 @@
 
         .modal-content {
             height: 100%;
-            border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
         }
@@ -133,7 +170,11 @@
 </head>
 <body>
 
-<div class="toggle-btn" id="toggleMenu">+</div>
+<div class="toggle-btn" id="toggleMenu">
+    <div class="bar bar1"></div>
+    <div class="bar bar2"></div>
+    <div class="bar bar3"></div>
+</div>
 
 <div class="circle-menu" id="circleMenu">
     <div class="menu-items">
@@ -143,7 +184,15 @@
     </div>
 </div>
 
-<iframe src='https://my.matterport.com/show/?m=XDAfMrY7hxC&play=1' allowfullscreen allow='xr-spatial-tracking'></iframe>
+<iframe 
+    id="iframe_34889536475908336" 
+    class="showcase showcase" 
+    frameborder="0" 
+    allow="geolocation;fullscreen;vr;autoplay;xr-spatial-tracking"
+    src="https://my.matterport.com/show/?m=XDAfMrY7hxC&play=1&newtags=1&xruntested=1&title=0&brand=1&hl=0&tourcta=1&dh=0&mt=1&nozoom=0&pin=0&mls=0&qs=0&gt=1&portal=1&f=1&wh=1&kb=1&lp=1&vr=1&help=null&nt=0&search=0&hidetags=1&ss=34&sr=-0.17134584928066443,1.079921397637133&useLegacyIds=1"
+    style="filter: brightness(0.97) saturate(1.47) contrast(1.02);">
+</iframe>
+
 
 <div class="modal fade" id="popup1" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
@@ -167,9 +216,8 @@
 
 <div class="modal fade" id="popup3" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-            <div class="modal-body">
-                <img src="https://s0.ww-realty.ru/upload/981/9814ddb2fd08721eed26f8880721d23f.jpg" data-bs-dismiss="modal" alt="Photo 3">
-            </div>
+        <div class="modal-body">
+            <img src="https://s0.ww-realty.ru/upload/981/9814ddb2fd08721eed26f8880721d23f.jpg" data-bs-dismiss="modal" alt="Photo 3">
         </div>
     </div>
 </div>
@@ -180,7 +228,19 @@
     const circleMenu = document.getElementById('circleMenu');
 
     toggleMenu.addEventListener('click', () => {
+        toggleMenu.classList.toggle('open');
         circleMenu.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (
+            circleMenu.classList.contains('open') &&
+            !circleMenu.contains(event.target) &&
+            event.target !== toggleMenu
+        ) {
+            toggleMenu.classList.remove('open');
+            circleMenu.classList.remove('open');
+        }
     });
 
     document.addEventListener('fullscreenchange', handleFullScreen);
@@ -188,8 +248,7 @@
 
     function handleFullScreen() {
         const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
-        const toggleBtn = document.getElementById('toggleMenu');
-        toggleBtn.style.display = isFullscreen ? 'block' : 'flex';
+        toggleMenu.style.display = isFullscreen ? 'block' : 'flex';
     }
 </script>
 
