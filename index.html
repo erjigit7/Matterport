@@ -206,9 +206,8 @@
         <button data-bs-toggle="modal" data-bs-target="#popup3">3</button>
     </div>
 </div>
-
 <!-- Основной iframe -->
-<iframe id="mainIframe" src='https://my.matterport.com/show/?m=XDAfMrY7hxC&play=1&pin=1&portal=0&fp=0' allowfullscreen allow='xr-spatial-tracking'></iframe>
+<iframe id="mainIframe" src='https://my.matterport.com/show/?m=Xt1MBuGC98T&play=1&pin=1&portal=0&fp=0' allowfullscreen allow='xr-spatial-tracking'></iframe>
 
 <!-- Кнопка в левом нижнем углу -->
 <div class="switch-btn" id="switchBtn">
@@ -277,10 +276,10 @@
     // Обработка клика на кнопку для переключения iframe
     switchBtn.addEventListener('click', () => {
         const currentSrc = mainIframe.src;
-        if (currentSrc.includes('XDAfMrY7hxC')) {
+        if (currentSrc.includes('Xt1MBuGC98T')) {
             mainIframe.src = 'https://my.matterport.com/show/?m=Nr6LgMPUrmz&play=1&pin=1&portal=0&fp=0';
         } else {
-            mainIframe.src = 'https://my.matterport.com/show/?m=XDAfMrY7hxC&play=1&pin=1&portal=0&fp=0';
+            mainIframe.src = 'https://my.matterport.com/show/?m=Xt1MBuGC98T&play=1&pin=1&portal=0&fp=0';
         }
     });
 </script>
